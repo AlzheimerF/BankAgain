@@ -56,11 +56,8 @@ class SecretInfoSerializer(serializers.ModelSerializer):
         )
         return secret_info
 
-# class RateSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = Rate
-#         fields = '__all__'
-#
-#     def create(self, validated_data):
+class RateSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Rate
+        fields = '__all__'

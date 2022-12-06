@@ -1,6 +1,9 @@
-/djangoProject/db.sqlite3
-/BankProject12/user/migrations
-./BankProject12/post/migrations
+user/migrations
+post/migrations
+room/migrations
+user/__pycache__/
+post/__pycache__/
+room/__pycache__/
 .env
 venv
 .idea

@@ -22,9 +22,7 @@ urlpatterns = [
     path('redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),
-    path('user/', include('user.urls.user_urls')),
-    path('info/', include('user.urls.info_urls'), name='info'),
-    path('post/', include('post.urls')),
-    path('secret_info/', include('user.urls.secret_info_urls')),
-    path('room/', include('room.urls')),
+    path('', include('user.urls')),
+    path('', include('post.urls')),
+    path('', include('room.urls')),
 ]

@@ -4,7 +4,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly, IsAu
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .models import Profile, Info, SecretInfo, Rate
-from .serializers import ProfileSerializer, InfoSerializer, SecretInfoSerializer
+from .serializers import ProfileSerializer, InfoSerializer, SecretInfoSerializer, RateSerializer
 
 class ProfileViewSet(viewsets.ModelViewSet):
 
@@ -32,13 +32,20 @@ class InfoViewSet(viewsets.ModelViewSet):
 
     queryset = Info.objects.all()
     serializer_class = InfoSerializer
-    permission_classes = [IsAdminUser, ]
+    permission_classes = [AllowAny, ]
 
 class SecretInfoViewSet(viewsets.ModelViewSet):
 
     queryset = SecretInfo.objects.all()
     serializer_class = SecretInfoSerializer
-    permission_classes = [IsAdminUser, ]
+    permission_classes = [AllowAny, ]
 
     def create(self, request, *args, **kwargs):
         print(request.data)
+
+
+class RateViewSet(viewsets.ModelViewSet):
+
+    queryset = Rate.objects.all()
+    serializer_class = RateSerializer
+    permission_classes = [AllowAny, ]

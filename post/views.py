@@ -8,10 +8,7 @@ from . import serializers
 class PostViewSet(viewsets.ModelViewSet):
 
     queryset = models.Post.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly, ]
+    permission_classes = [AllowAny, ]
     serializer_class = serializers.PostSerializer
 
 
-# class OrderViewSet(viewsets.ModelViewSet):
-#
-#     queryset = models.Order.objects.all()
