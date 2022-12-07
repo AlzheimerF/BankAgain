@@ -1,9 +1,9 @@
 user/migrations
 post/migrations
 room/migrations
-user/__pycache__/
-post/__pycache__/
-room/__pycache__/
+user/__pycache__
+post/__pycache__
+room/__pycache__
 .env
 venv
 .idea

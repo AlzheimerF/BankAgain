@@ -7,3 +7,9 @@ class PostSerializer(serializers.ModelSerializer):
         model = models.Post
         fields = '__all__'
 
+class OrderSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Order
+        fields = '__all__'
+

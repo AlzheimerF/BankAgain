@@ -2,25 +2,43 @@ from rest_framework import serializers
 from .models import Profile, Info, SecretInfo, Rate
 
 class ProfileSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(max_length=100, write_only=True)
-
+    # password2 = serializers.CharField()
     class Meta:
         model = Profile
-        fields = ['id', 'username', 'password', 'password2', 'date_joined', ]
+        fields = ['id', 'email', 'username', 'password', ]
 
-    def validate(self, attrs):
-        if attrs['password2'] != attrs['password']:
-            raise serializers.ValidationError()
-        return attrs
+    # def validate(self, attrs):
+    #     if attrs['password2'] != attrs['password']:
+    #         raise serializers.ValidationError()
+    #     return attrs
 
-    def create(self, validated_data):
-        profile = Profile.objects.create_user(
-            username=validated_data.get('username'),
-            password=validated_data.get('password'),
-            about_yourself=validated_data.get('about_yourself')
+    # def create(self, validated_data):
+    #     profile = Profile.objects.create_user(
+    #         username=validated_data.get('username'),
+    #         password=validated_data.get('password'),
+    #         about_yourself=validated_data.get('about_yourself')
+    #     )
+    #
+    #     return profile
+    def save(self, *args, **kwargs):
+        # Создаём объект класса CustomUser
+        user = Profile(
+            email=self.validated_data['email'],
+            username=self.validated_data['username'],
         )
+        password = self.validated_data['password']
+        # password2 = self.validated_data['password2']
+        # if password != password2:
+        #     raise serializers.ValidationError({password: "Пароль не совпадает"})
+        user.set_password(password)
+        user.save()
+        return user
 
-        return profile
+class VerifySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('email', 'email_verify',)
+
 
 
 class InfoSerializer(serializers.ModelSerializer):

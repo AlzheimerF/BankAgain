@@ -27,7 +27,6 @@ class Post(models.Model):
         return str(self.title)
 
 
-
 class Order(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post')
     type_order = models.CharField(max_length=200)
@@ -43,4 +42,6 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.post.title)
+
+
 

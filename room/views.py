@@ -11,8 +11,3 @@ class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.RoomSerializer
     permission_classes = [permissions.AllowAny]
 
-    # @action(['POST'], detail=True, url_path='send_message')
-    # def send_message(self, request, *args, **kwargs):
-    #     ChatConsumer()
-    #     return Response({'ok': True})
-    #

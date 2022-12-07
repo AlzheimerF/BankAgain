@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'drf_yasg',
     'channels',
     'corsheaders',
@@ -94,15 +96,21 @@ CHANNEL_LAYERS = {
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASS'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# DATABASES = {
+#         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         # 'NAME': config('DB_NAME'),
+#         # 'USER': config('DB_USER'),
+#         # 'PASSWORD': config('DB_PASS'),
+#         # 'HOST': config('DB_HOST'),
+#         # 'PORT': config('DB_PORT'),
+#     }
+# }
 
 
 # Password validation
@@ -152,7 +160,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.Profile'
 
 REST_FRAMEWORK = {
-   'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
 }
 
 CSRF_TRUSTED_ORIGINS = ['https://de3a-158-181-254-101.eu.ngrok.io']
@@ -194,3 +205,19 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+DJOSER = {
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': False,
+    'SERIALIZERS': {},
+}
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = config('EM_USER')
+# EMAIL_HOST_PASSWORD = config('EM_PASSWORD')
+# DEFAULT_FROM_EMAIL = 'atashbaevnurjigit@gmail.com'
