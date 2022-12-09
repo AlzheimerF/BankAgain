@@ -1,11 +1,12 @@
 user/migrations
 post/migrations
 room/migrations
-user/__pycache__
-post/__pycache__
-room/__pycache__
+djangoProject/__pycache__/
+user/__pycache__/
+post/__pycache__/
+room/__pycache__/
 .env
 venv
 .idea
 db.sqlite3
-
+_trial_temp

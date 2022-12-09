@@ -1,10 +1,19 @@
 from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .models import Profile, Info, SecretInfo, Rate
 from .serializers import ProfileSerializer, InfoSerializer, SecretInfoSerializer, RateSerializer, VerifySerializer
 
+
+class ProfileRetrieveAPIView(RetrieveAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+    def get_object(self):
+        profile = self.request.user
+        return profile
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
@@ -13,15 +22,13 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     permission_classes = [AllowAny, ]
 
-    lookup_field = 'email_verify'
-
     @action(detail=True, methods=['get'])
     def check_user(self, request, *args, **kwargs):
-
         user = Profile.objects.get(id=kwargs.get('pk'))
 
         serializer1 = ProfileSerializer(user)
-        info = Info.objects.get(user=kwargs.get('pk'))
+
+        info = request.user.info
         serializer2 = InfoSerializer(info)
 
         secret_info = SecretInfo.objects.get(user=kwargs.get('pk'))

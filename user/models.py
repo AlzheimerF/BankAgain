@@ -83,26 +83,26 @@ class Info(models.Model):
         ('Female', 'Female'),
         ('Male', 'Male'),
     ]
-    user = models.ForeignKey(Profile, on_delete=models.PROTECT)
-    avatar = models.ImageField()
-    country = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    language = models.CharField(max_length=50, choices=LANGUAGE_CHOICES)
-    age = models.IntegerField()
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    user = models.OneToOneField(Profile, on_delete=models.PROTECT, related_name='info')
+    avatar = models.ImageField(null=True)
+    country = models.CharField(max_length=255, null=True)
+    city = models.CharField(max_length=255, null=True)
+    language = models.CharField(max_length=50, choices=LANGUAGE_CHOICES, null=True)
+    age = models.IntegerField(null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
 
     def __str__(self):
-        return self.country
+        return self.user.username
 
 class SecretInfo(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.PROTECT)
-    passport_front = models.ImageField(unique=True)
-    passport_back = models.ImageField(unique=True)
-    address = models.CharField(max_length=255, unique=True)
-    number = models.BigIntegerField(null=True, unique=True)
+    user = models.OneToOneField(Profile, on_delete=models.PROTECT, related_name='secret_info')
+    passport_front = models.ImageField(null=True)
+    passport_back = models.ImageField(null=True)
+    address = models.CharField(max_length=255, null=True)
+    number = models.BigIntegerField(null=True)
 
     def __str__(self):
-        return self.address
+        return self.user.username
 
 class Rate(models.Model):
     STARS_CHOICES = [

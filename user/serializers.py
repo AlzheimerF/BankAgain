@@ -3,9 +3,18 @@ from .models import Profile, Info, SecretInfo, Rate
 
 class ProfileSerializer(serializers.ModelSerializer):
     # password2 = serializers.CharField()
+    info_data = serializers.SerializerMethodField()
+    secret_info_data = serializers.SerializerMethodField()
+    def get_info_data(self, obj):
+        return InfoSerializer(obj.info).data
+
+    def get_secret_info_data(self, obj):
+        return SecretInfoSerializer(obj.secret_info).data
+
+
     class Meta:
         model = Profile
-        fields = ['id', 'email', 'username', 'password', ]
+        fields = ['id', 'email', 'username', 'info_data', 'secret_info_data']
 
     # def validate(self, attrs):
     #     if attrs['password2'] != attrs['password']:
@@ -16,10 +25,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     #     profile = Profile.objects.create_user(
     #         username=validated_data.get('username'),
     #         password=validated_data.get('password'),
-    #         about_yourself=validated_data.get('about_yourself')
     #     )
-    #
-    #     return profile
+
+        # return profile
     def save(self, *args, **kwargs):
         user = Profile(
             email=self.validated_data['email'],
