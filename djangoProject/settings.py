@@ -213,11 +213,11 @@ DJOSER = {
     'SERIALIZERS': {},
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = False
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = config('EM_USER')
-# EMAIL_HOST_PASSWORD = config('EM_PASSWORD')
-# DEFAULT_FROM_EMAIL = 'atashbaevnurjigit@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EM_USER')
+EMAIL_HOST_PASSWORD = config('EM_PASSWORD')
+DEFAULT_FROM_EMAIL = '4rakal4@gmail.com'

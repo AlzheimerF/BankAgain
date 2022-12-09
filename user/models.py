@@ -46,6 +46,8 @@ class Profile(AbstractUser):
     email_verify = models.UUIDField(default=uuid4())
     email = models.EmailField(max_length=250, unique=True)
 
+    is_active = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email'  # Идентификатор для обращения
     REQUIRED_FIELDS = ['username']  # Список имён полей для Superuser
 
@@ -58,18 +60,17 @@ class Profile(AbstractUser):
         self.is_active = True
         self.save(update_fields=['is_active'])
 
-# @receiver(post_save, sender=Profile)
-# def create_profile(sender, instance, created, **kwargs):
-#     if created:
-#         uuid = instance.email_verify
-#         send_mail('Contact Form',
-#                   f'http://127.0.0.1:8000/auth/{uuid}',
-#                   settings.EMAIL_HOST_xUSER,
-#                   [f'{instance.email}'],
-#                   fail_silently=False)
-#
-#         Profile.objects.create(user=instance)
-#
+@receiver(post_save, sender=Profile)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        uuid = instance.email_verify
+        send_mail('Contact Form',
+                  f'http://127.0.0.1:8000/email/verification/{uuid}',
+                  settings.EMAIL_HOST_USER,
+                  [instance.email],
+                  fail_silently=False)
+
+
 
 
 

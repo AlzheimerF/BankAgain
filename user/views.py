@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from rest_framework import viewsets, generics
-from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .models import Profile, Info, SecretInfo, Rate
@@ -35,6 +34,7 @@ class EmailVerifyAPIView(generics.RetrieveAPIView):
     queryset = Profile.objects.filter(is_active=False)
 
     lookup_field = 'email_verify'
+    permission_classes = (AllowAny, )
 
     def retrieve(self, request, *args, **kwargs):
         instance: Profile = self.get_object()

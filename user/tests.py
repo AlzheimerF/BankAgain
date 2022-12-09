@@ -1,4 +1,17 @@
 from django.test import TestCase
-from datetime import datetime
+from . import models
 
-print(str(datetime.now()))
+class OneTest(TestCase):
+
+    def setUp(self):
+        self.user = models.Profile.objects.create_user(
+            username='Alz1',
+            email='1@gmail.com',
+            password='azsxdcfv123'
+        )
+
+    def test_check_user(self):
+        self.assertEqual(str(1), str(models.Profile.objects.count()))
+        self.assertEqual('Alz1', models.Profile.objects.get(id=1).username)
+
+

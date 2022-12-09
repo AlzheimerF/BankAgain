@@ -12,5 +12,5 @@ router.register('secret_info', SecretInfoViewSet, basename='secret_info')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('email/verification/<uuid:email_verify>', EmailVerifyAPIView.as_view(), name='emailActivate'),
+    path('email/verification/<uuid:email_verify>/', EmailVerifyAPIView.as_view(), name='emailActivate'),
 ]
