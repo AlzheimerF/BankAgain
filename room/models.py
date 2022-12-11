@@ -3,7 +3,7 @@ from user.models import Profile
 from post.models import Order
 
 class Room(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
 

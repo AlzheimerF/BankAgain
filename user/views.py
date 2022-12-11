@@ -1,5 +1,5 @@
 from rest_framework import viewsets, generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -10,6 +10,7 @@ from .serializers import ProfileSerializer, InfoSerializer, SecretInfoSerializer
 class ProfileRetrieveAPIView(RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated, ]
 
     def get_object(self):
         profile = self.request.user
